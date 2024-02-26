@@ -1,0 +1,17 @@
+name: Deploy to Kubernetes
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Kubectl
+      uses: azure/setup-kubectl@v1
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f deployment.yml
+        kubectl rollout status deployment/credoratest
+
